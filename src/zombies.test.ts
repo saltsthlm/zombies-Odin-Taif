@@ -7,9 +7,9 @@ const createRoom = (initCapacity: number) => {
   return {
     isFull: () => (_capacity === 0 ? true : false),
     notFull: () => (_capacity === 1 ? true : false),
-    isEmpty: () => _capacity >= 2,
-    addZombie: () => (_capacity ? (_capacity++, true) : false),
-    removeZombie: () => (_capacity > 0 ? (_capacity--, true) : false),
+    isEmpty: () => _capacity === 0,
+    addZombie: () => (_capacity ? (_capacity++, true) : null),
+    removeZombie: () => (_capacity > 0 ? (_capacity--, true) : null),
   };
 };
 
@@ -28,8 +28,8 @@ test("empty room that fits one zombie is not full", () => {
 });
 
 test("empty room cannot fit any zombies", () => {
-  // if room capacity is 2 or more(meaning no zombies inside) then the room is empty and therefor can not fit any zombies.
-  const roomCapacity = createRoom(2);
+  const roomCapacity = createRoom(0);
+  roomCapacity.addZombie();
   const result = roomCapacity.isEmpty();
 
   ok(result);
