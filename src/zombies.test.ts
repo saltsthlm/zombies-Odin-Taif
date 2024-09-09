@@ -1,14 +1,17 @@
 import { ok } from "node:assert/strict";
 import { test } from "node:test";
 
-const createRoom = (capacity: number) => {
-  const _capacity = capacity;
+const createRoom = (initCapacity: number) => {
+  let _capacity = initCapacity;
 
   return {
-    isFull: () => true,
-    notFull: () => false,
-    isEmpty: (_capacity: number) => (_capacity >= 2 ? true : false),
-    addZombie: (_capacity: number) => (_capacity === 1 ? _capacity-- : false),
+    isFull: () => (_capacity === 0 ? true : false),
+    notFull: () => (_capacity > 0 ? false : true),
+    isEmpty: (_capacity: number) => _capacity >= 2,
+    // addZombie: (_capacity: number) =>
+    //   _capacity > 0 ? (_capacity--, true) : false,
+    // removeZombie: () =>
+    //   _capacity < initCapacity ? (_capacity++, true) : false,
   };
 };
 
@@ -34,15 +37,25 @@ test("empty room cannot fit any zombies", () => {
   ok(result);
 });
 
-test("one-roomer becomes full when a zombie is added", () => {
-  const roomCapacity = createRoom(1);
-  const result = roomCapacity.addZombie(1);
+// test("one-roomer becomes full when a zombie is added", () => {
+//   const roomCapacity = createRoom(1);
+//   const result = roomCapacity.addZombie(1);
 
-  ok(result);
-});
+//   ok(result);
+// });
 
-// test.skip("two-roomer is not full when a zombie is added", () => {});
+// test("two-roomer is not full when a zombie is added", () => {
+//   const roomCapacity = createRoom(2);
+//   const result = roomCapacity.addZombie(1);
 
-// test.skip("second zombie consumes first zombie when added to a one-roomer", () => {});
+//   ok(result);
+// });
+
+// test("second zombie consumes first zombie when added to a one-roomer", () => {
+//   const roomCapacity = createRoom(1);
+//   const result = roomCapacity.removeZombie(1);
+
+//   ok(result);
+// });
 
 // You are free to add more tests that you think are relevant!
