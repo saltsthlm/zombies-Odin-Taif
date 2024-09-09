@@ -8,9 +8,8 @@ const createRoom = (initCapacity: number) => {
     isFull: () => (_capacity === 0 ? true : false),
     notFull: () => (_capacity === 1 ? true : false),
     isEmpty: () => _capacity >= 2,
-    addZombie: () => (_capacity > 0 ? (_capacity--, true) : false),
-    // removeZombie: () =>
-    //   _capacity < initCapacity ? (_capacity++, true) : false,
+    addZombie: () => (_capacity < initCapacity ? (_capacity++, true) : false),
+    removeZombie: () => (_capacity > 0 ? (_capacity--, true) : false),
   };
 };
 
@@ -38,24 +37,26 @@ test("empty room cannot fit any zombies", () => {
 
 test("one-roomer becomes full when a zombie is added", () => {
   const roomCapacity = createRoom(1);
-  roomCapacity.addZombie();
+  roomCapacity.removeZombie();
   const result = roomCapacity.isFull();
 
   ok(result);
 });
 
-// test("two-roomer is not full when a zombie is added", () => {
-//   const roomCapacity = createRoom(2);
-//   const result = roomCapacity.addZombie(1);
+test("two-roomer is not full when a zombie is added", () => {
+  const roomCapacity = createRoom(2);
+  roomCapacity.removeZombie();
+  const result = roomCapacity.notFull();
 
-//   ok(result);
-// });
+  ok(result);
+});
 
-// test("second zombie consumes first zombie when added to a one-roomer", () => {
-//   const roomCapacity = createRoom(1);
-//   const result = roomCapacity.removeZombie(1);
+test("second zombie consumes first zombie when added to a one-roomer", () => {
+  const roomCapacity = createRoom(1);
+  roomCapacity.addZombie();
+  const result = roomCapacity.removeZombie(); // Removing the zombie
 
-//   ok(result);
-// });
+  ok(result);
+});
 
 // You are free to add more tests that you think are relevant!
