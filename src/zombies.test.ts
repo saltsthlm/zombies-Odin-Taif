@@ -8,7 +8,7 @@ const createRoom = (initCapacity: number) => {
     isFull: () => (_capacity === 0 ? true : false),
     notFull: () => (_capacity === 1 ? true : false),
     isEmpty: () => _capacity >= 2,
-    addZombie: () => (_capacity < initCapacity ? (_capacity++, true) : false),
+    addZombie: () => (_capacity ? (_capacity++, true) : false),
     removeZombie: () => (_capacity > 0 ? (_capacity--, true) : false),
   };
 };
