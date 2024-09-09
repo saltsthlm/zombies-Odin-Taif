@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "tsx --test",
-    "watch-test": "tsx --test --watch"
+    "watch-test": "tsx --test --watch ./src/zombies.test.ts"
   },
   "keywords": [],
   "author": "",

@@ -11,9 +11,7 @@ const createRoom = (capacity: number) => {
 
 test("room is not full", () => {
   const room = createRoom(0);
-
   const result = room.isFull();
-
   ok(result);
 });
 
